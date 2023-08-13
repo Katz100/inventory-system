@@ -11,4 +11,13 @@ LinkedListNode::LinkedListNode(int value, LinkedListNode* prev, LinkedListNode* 
 	desc = "N/A";
 }
 
+LinkedListNode::LinkedListNode(int id, int quantity, std::string desc, LinkedListNode* previous, LinkedListNode* next)
+	: id(id),
+	quantity(quantity),
+	desc(desc),
+	previous(previous),
+	next(next)
+{
+}
+
 

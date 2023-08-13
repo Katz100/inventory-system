@@ -3,11 +3,13 @@
 LinkedList::LinkedList()
 	: Head(nullptr)
 {
+	
 }
 
 LinkedList::~LinkedList()
 {
-	Clear();
+	outputFile();
+	
 }
 
 void LinkedList::Clear()
@@ -35,6 +37,27 @@ void LinkedList::PushBack(int value)
 			Current = Current->next;
 		}
 		LinkedListNode* Temp = new LinkedListNode(value, Current);
+		Current->next = Temp;
+
+	}
+}
+
+void LinkedList::pushNode(int ID, int quan, std::string d)
+{
+	LinkedListNode* Current = Head;
+
+	if (Head == nullptr)
+	{
+		Head = new LinkedListNode(ID, quan, d);
+	}
+	else
+	{
+		LinkedListNode* Current = Head;
+		while (Current->next != nullptr)
+		{
+			Current = Current->next;
+		}
+		LinkedListNode* Temp = new LinkedListNode(ID, quan, d, Current);
 		Current->next = Temp;
 
 	}
@@ -286,6 +309,71 @@ void LinkedList::printNode(int id)
 	}
 }
 
+void LinkedList::outputFile()
+{
+	std::ofstream file("InvenFile.txt");
+	LinkedListNode* Current = Head;
+
+	while (Current != nullptr)
+	{
+		file << Current->id << std::endl << Current->quantity <<
+			std::endl << Current->desc << std::endl;
+		Current = Current->next;
+	}
+
+	file.close();
+}
+
+void LinkedList::inputFile(const std::string& filename)
+{
+	std::ifstream file(filename);
+
+	int id, quantity;
+	std::string desc;
+
+	while (file >> id >> quantity >> desc)
+	{
+		pushNode(id, quantity, desc);
+	}
+}
+
+
+
+void LinkedList::inputIventory()
+{
+	
+	std::cout << "Enter id: ";
+	int inputId;
+	std::cin >> inputId;
+	if (std::cin.fail())
+	{
+		std::cin.clear();
+		std::cin.ignore();
+		std::cout << "Enter a number only" << std::endl;
+	}
+	else
+	{
+		if (Head == nullptr)
+		{
+			PushBack(inputId);
+		}
+		else
+		{
+
+			if (IDAlreadyExist(inputId))
+			{
+				std::cout << "ID already exists." << std::endl;
+
+			}
+			else
+			{
+				PushBack(inputId);
+			}
+
+		}
+	}
+}
+
 bool LinkedList::empty()
 {
 	return Head == nullptr;
@@ -330,40 +418,4 @@ std::ostream& operator<<(std::ostream& ostr, const LinkedList& rhs)
 	}
 	
 	return ostr;
-}
-
-std::istream& operator>>(std::istream& in, LinkedList& list)
-{
-		std::cout << "Enter id: ";
-		int inputId;
-		std::cin >> inputId;
-		if (std::cin.fail())
-		{
-			std::cin.clear();
-			std::cin.ignore();
-			std::cout << "Enter a number only" << std::endl;
-		}
-		else
-		{
-			if (list.Head == nullptr)
-			{
-				list.PushBack(inputId);
-			}
-			else
-			{
-
-				if (list.IDAlreadyExist(inputId))
-				{
-					std::cout << "ID already exists." << std::endl;
-
-				}
-				else
-				{
-					list.PushBack(inputId);
-				}
-
-			}
-		}
-	
-	return in;
 }

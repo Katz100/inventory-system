@@ -10,7 +10,7 @@ LinkedList Inventory;
 int running = 1;
 
 int main() {
-	
+	Inventory.inputFile("InvenFile.txt");
 	while (running == 1) {
 		menu();
 	}
@@ -35,7 +35,7 @@ void menu() {
 		}
 		if (UserInput == 1)
 		{
-			std::cin >> Inventory;
+			Inventory.inputIventory();
 		}
 		if (UserInput == 2)
 		{

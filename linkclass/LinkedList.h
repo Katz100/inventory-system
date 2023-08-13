@@ -2,6 +2,7 @@
 #include "LinkedListNode.h"
 #include <iostream>
 #include <istream>
+#include <fstream>
 class LinkedList {
 public:
 	LinkedList();
@@ -15,9 +16,12 @@ public:
 	void changeQuantity(int id, int newQuantity);
 	void changeDesc(int id, std::string newDesc);
 	void printNode(int id);
-
+	void outputFile();
+	void inputFile(const std::string& filename);
+	void pushNode(int ID, int quan, std::string d);
+	void inputIventory();
 	friend std::ostream& operator <<(std::ostream& ostr, const LinkedList& rhs);
-	friend std::istream& operator >>(std::istream& in, LinkedList& list);
+	//friend std::istream& operator >>(std::istream& in, LinkedList& list);
 
 	double front();
 	double back();
