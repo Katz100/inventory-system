@@ -9,7 +9,7 @@ LinkedList::LinkedList()
 LinkedList::~LinkedList()
 {
 	outputFile();
-	
+	Clear();
 }
 
 void LinkedList::Clear()
