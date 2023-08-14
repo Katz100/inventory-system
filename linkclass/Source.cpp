@@ -36,7 +36,7 @@ void menu() {
 		}
 		if (UserInput == 1)
 		{
-			Inventory.inputIventory();
+			std::cin >> Inventory;
 		}
 		if (UserInput == 2)
 		{

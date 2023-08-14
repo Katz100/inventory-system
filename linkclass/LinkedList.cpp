@@ -339,40 +339,7 @@ void LinkedList::inputFile(const std::string& filename)
 
 
 
-void LinkedList::inputIventory()
-{
-	
-	std::cout << "Enter id: ";
-	int inputId;
-	std::cin >> inputId;
-	if (std::cin.fail())
-	{
-		std::cin.clear();
-		std::cin.ignore();
-		std::cout << "Enter a number only" << std::endl;
-	}
-	else
-	{
-		if (Head == nullptr)
-		{
-			PushBack(inputId);
-		}
-		else
-		{
 
-			if (IDAlreadyExist(inputId))
-			{
-				std::cout << "ID already exists." << std::endl;
-
-			}
-			else
-			{
-				PushBack(inputId);
-			}
-
-		}
-	}
-}
 
 bool LinkedList::empty()
 {
@@ -418,4 +385,38 @@ std::ostream& operator<<(std::ostream& ostr, const LinkedList& rhs)
 	}
 	
 	return ostr;
+}
+
+std::istream& operator>>(std::istream& in, LinkedList& list)
+{
+	std::cout << "Enter id: ";
+	int inputId;
+	std::cin >> inputId;
+	if (std::cin.fail())
+	{
+		std::cin.clear();
+		std::cin.ignore();
+		std::cout << "Enter a number only" << std::endl;
+	}
+	else
+	{
+		if (list.Head == nullptr)
+		{
+			list.PushBack(inputId);
+		}
+		else
+		{
+
+			if (list.IDAlreadyExist(inputId))
+			{
+				std::cout << "ID already exists." << std::endl;
+
+			}
+			else
+			{
+				list.PushBack(inputId);
+			}
+
+		}
+	}
 }
