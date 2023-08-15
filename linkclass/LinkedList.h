@@ -20,9 +20,9 @@ public:
 	void inputFile(const std::string& filename);
 	void pushNode(int ID, int quan, std::string d);
 	
-	friend std::ostream& operator <<(std::ostream& ostr, const LinkedList& rhs);
+	friend std::ostream& operator <<(std::ostream& ostr,  const LinkedList& rhs);
 	friend std::istream& operator >>(std::istream& in, LinkedList& list);
-
+	
 	double front();
 	double back();
 
@@ -34,6 +34,7 @@ public:
 	bool IDAlreadyExist(int value);
 
 
+private:
 	LinkedListNode* Head;
 };
 ///

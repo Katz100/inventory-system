@@ -1,8 +1,6 @@
 #include <iostream>
 #include "LinkedList.h"
-
-
-
+//#include <limits>
 
 void menu();
 
@@ -11,6 +9,10 @@ int running = 1;
 
 int main() {
 	Inventory.inputFile("InvenFile.txt");
+
+
+	
+	
 
 	while (running == 1) {
 		menu();

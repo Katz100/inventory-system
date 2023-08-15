@@ -184,6 +184,7 @@ int LinkedList::returnQuantity(int id)
 		}
 	}
 	if (Current == nullptr) throw std::out_of_range("ID does not exist.");
+	return -1;
 }
 
 std::string LinkedList::returnDesc(int id)
@@ -208,6 +209,7 @@ std::string LinkedList::returnDesc(int id)
 		}
 	}
 	if (Current == nullptr) throw std::out_of_range("ID does not exist.");
+	return "";
 }
 
 void LinkedList::changeID(int oldId, int newId)
@@ -380,7 +382,11 @@ std::ostream& operator<<(std::ostream& ostr, const LinkedList& rhs)
 	
 	LinkedListNode* Current = rhs.Head;
 	while (Current != nullptr) {
-		ostr << Current->id << std::endl << Current->quantity << std::endl << Current->desc << std::endl << std::endl;
+		ostr << "________________________________\n"
+			<< "\tID: " << Current->id << std::endl
+			<< "\tQuantity: " << Current->quantity << std::endl
+			<< "\tDesc: " << Current->desc << std::endl
+			<< "________________________________\n";
 		Current = Current->next;
 	}
 	
@@ -419,4 +425,5 @@ std::istream& operator>>(std::istream& in, LinkedList& list)
 
 		}
 	}
+	return in;
 }
