@@ -12,6 +12,18 @@ LinkedList::~LinkedList()
 	Clear();
 }
 
+LinkedList::LinkedList(const LinkedList& other)
+	: Head (nullptr)
+{
+	LinkedListNode* Current = other.Head;
+
+	while (Current != nullptr)
+	{
+		pushNode(Current->id, Current->quantity, Current->desc);
+		Current = Current->next;
+	}
+}
+
 void LinkedList::Clear()
 {
 	LinkedListNode* Current = Head;
@@ -60,6 +72,42 @@ void LinkedList::pushNode(int ID, int quan, std::string d)
 		LinkedListNode* Temp = new LinkedListNode(ID, quan, d, Current);
 		Current->next = Temp;
 
+	}
+}
+
+void LinkedList::printNeighbors(int ID)
+{
+	if (Head == nullptr)
+	{
+		//empty list
+		throw std::out_of_range("Tried to call printNeighbors() on empty linked list");
+	}
+
+	LinkedListNode* Current = Head;
+
+	while (Current != nullptr && Current->id != ID)
+	{
+		Current = Current->next;
+	}
+
+	if (Current == nullptr)
+	{
+		std::cout << "Could not find ID" << std::endl;
+	}
+	else
+	{
+		// Node is head
+		if (Current->previous != nullptr)
+		{
+			std::cout << "________________________________\n\n\tID: " << Current->previous->id << "\n\tQuantity: " << Current->previous->quantity
+				<< "\n\tDesc: " << Current->previous->desc << "\t\n________________________________" << std::endl;
+		}
+		// Node is last
+		if (Current->next != nullptr)
+		{
+			std::cout << "________________________________\n\n\tID: " << Current->next->id << "\n\tQuantity: " << Current->next->quantity
+				<< "\n\tDesc: " << Current->next->desc << "\t\n________________________________" << std::endl;
+		}
 	}
 }
 
@@ -318,8 +366,9 @@ void LinkedList::outputFile()
 
 	while (Current != nullptr)
 	{
-		file << Current->id << std::endl << Current->quantity <<
-			std::endl << Current->desc << std::endl;
+		file << Current->id << std::endl 
+			 << Current->quantity << std::endl 
+			 << Current->desc << std::endl;
 		Current = Current->next;
 	}
 

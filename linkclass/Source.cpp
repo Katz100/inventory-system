@@ -10,10 +10,6 @@ int running = 1;
 int main() {
 	Inventory.inputFile("InvenFile.txt");
 
-
-	
-	
-
 	while (running == 1) {
 		menu();
 	}

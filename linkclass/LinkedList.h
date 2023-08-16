@@ -7,6 +7,7 @@ class LinkedList {
 public:
 	LinkedList();
 	~LinkedList();
+	LinkedList(const LinkedList& other); // copy contructor
 
 	void Clear();
 	void PushBack(int value);
@@ -19,6 +20,7 @@ public:
 	void outputFile();
 	void inputFile(const std::string& filename);
 	void pushNode(int ID, int quan, std::string d);
+	void printNeighbors(int ID);
 	
 	friend std::ostream& operator <<(std::ostream& ostr,  const LinkedList& rhs);
 	friend std::istream& operator >>(std::istream& in, LinkedList& list);
