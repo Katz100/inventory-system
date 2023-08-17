@@ -1,184 +1,232 @@
 #include <iostream>
 #include "LinkedList.h"
-//#include <limits>
+
+
 
 void menu();
+int getID();
+int getInput();
 
 LinkedList Inventory;
 int running = 1;
 
-int main() {
+int main() 
+{
+	
 	Inventory.inputFile("InvenFile.txt");
 
-	while (running == 1) {
+	
+	while (running == 1) 
+	{	
 		menu();
 	}
+	
+	
 	return 0;
 }
 
 void menu() {
 	std::cout << "------------------MAIN MENU--------------------" << std::endl;
-	int UserInput;
+	
 
-	std::cout << "1. Create Inventory\n2. Print All Inventory Items.\n3. Print Specific Inventory Item" <<
-		"\n4. Delete Inventory Item\n5. Clear Inventory\n6. Change ID\n7. Change Quantity\n8. Change Description\n9. Quit\n\n>>> ";
+	std::cout << "1. Create Inventory\n" <<
+		"2. Print All Inventory Items.\n" <<
+		"3. Print Specific Inventory Item\n" <<
+		"4. Print Neighbor\n" <<
+		"5. Delete Inventory Item\n" <<
+		"6. Clear Inventory\n" <<
+		"7. Change ID\n" <<
+		"8. Change Quantity\n" <<
+		"9. Change Description\n" <<
+		"10. Quit\n\n";
+	
+	int UserInput = getInput();
+	std::string s;
+	
+	if (UserInput == -1) {
+		//catch error
+		return;
+	}
 
 	try {
-		std::cin >> UserInput;
-		if (std::cin.fail())
-		{
-			std::cin.clear();
-			std::cin.ignore();
-			std::cout << "Invalid Choice" << std::endl;
-			return;
-		}
 		if (UserInput == 1)
 		{
 			std::cin >> Inventory;
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), \
+				'\n');
 		}
-		if (UserInput == 2)
+		else if (UserInput == 2)
 		{
 			std::cout << Inventory;
 		}
-		if (UserInput == 3)
+		else if (UserInput == 3)
 		{
-			int InputID;
-			std::cout << "Enter ID: ";
-			std::cin >> InputID;
-			if (std::cin.fail())
+			int id = getID();
+			if (id == -1)
 			{
-				std::cin.clear();
-				std::cin.ignore();
-				std::cout << "Invalid Choice" << std::endl;
+				std::cout << "Error" << std::endl;
 				return;
 			}
 			else
 			{
-				Inventory.printNode(InputID);
+				Inventory.printNode(id);
 			}
 		}
-		if (UserInput == 4)
+		else if (UserInput == 4)
 		{
-			int InputID;
-			std::cout << "Enter ID: ";
-			std::cin >> InputID;
-			if (std::cin.fail())
+			int id = getID();
+			if (id == -1)
 			{
-				std::cin.clear();
-				std::cin.ignore();
-				std::cout << "Invalid Choice" << std::endl;
+				std::cout << "Error" << std::endl;
 				return;
 			}
 			else
 			{
-				Inventory.popPosition(InputID);
+				Inventory.printNeighbors(id);
 			}
 		}
-		if (UserInput == 5)
+		else if (UserInput == 5)
+		{
+			int id = getID();
+			if (id == -1)
+			{
+				std::cout << "Error" << std::endl;
+				return;
+			}
+			else
+			{
+				Inventory.popPosition(id);
+			}
+		}
+		else if (UserInput == 6)
 		{
 			Inventory.Clear();
 		}
-		if (UserInput == 6)
+		else if (UserInput == 7)
 		{
-			int InputID;
-			std::cout << "Enter ID: ";
-			std::cin >> InputID;
-			if (std::cin.fail())
+			int id = getID();
+			
+			if (id == -1)
 			{
-				std::cin.clear();
-				std::cin.ignore();
-				std::cout << "Invalid Choice" << std::endl;
+				std::cout << "Error" << std::endl;
 				return;
 			}
 			else
 			{
-				int newID;
-				std::cout << "Enter new ID: ";
-				std::cin >> newID;
-				if (std::cin.fail())
-				{
-					std::cin.clear();
-					std::cin.ignore();
-					std::cout << "Invalid Choice" << std::endl;
-					return;
+				try {
+					std::string str;
+					std::cout << "Enter new id: ";
+					std::getline(std::cin, str);
+					int newID = stoi(str);
+					Inventory.changeID(id, newID);
 				}
-				else
+				catch (const std::invalid_argument& e)
 				{
-					Inventory.changeID(InputID, newID);
+					// char infront
+					std::cout << e.what() << std::endl;
+					return;
 				}
 			}
 		}
-		if (UserInput == 7)
+		else if (UserInput == 8)
 		{
-			int InputID;
-			std::cout << "Enter ID: ";
-			std::cin >> InputID;
-			if (std::cin.fail())
+			int id = getID();
+
+			if (id == -1)
 			{
-				std::cin.clear();
-				std::cin.ignore();
-				std::cout << "Invalid Choice" << std::endl;
+				std::cout << "Error" << std::endl;
 				return;
 			}
 			else
 			{
-				int newID;
-				std::cout << "Enter new Quantity: ";
-				std::cin >> newID;
-				if (std::cin.fail())
-				{
-					std::cin.clear();
-					std::cin.ignore();
-					std::cout << "Invalid Choice" << std::endl;
-					return;
+				try {
+					std::string str;
+					std::cout << "Enter new quantity: ";
+					std::getline(std::cin, str);
+					int quan = stoi(str);
+					Inventory.changeQuantity(id, quan);
 				}
-				else
+				catch (const std::invalid_argument& e)
 				{
-					Inventory.changeQuantity(InputID, newID);
+					// char infront
+					std::cout << e.what() << std::endl;
+					return;
 				}
 			}
 		}
-		if (UserInput == 8)
+		else if (UserInput == 9)
 		{
-			int InputID;
-			std::cout << "Enter ID: ";
-			std::cin >> InputID;
-			if (std::cin.fail())
+			int id = getID();
+
+			if (id == -1)
 			{
-				std::cin.clear();
-				std::cin.ignore();
-				std::cout << "Invalid Choice" << std::endl;
+				std::cout << "Error" << std::endl;
 				return;
 			}
 			else
 			{
-				std::string desc;
-				std::cout << "Enter new Description: ";
-				std::cin >> desc;
-				if (std::cin.fail())
-				{
-					std::cin.clear();
-					std::cin.ignore();
-					std::cout << "Invalid Choice" << std::endl;
-					return;
+				try {
+					std::string str;
+					std::cout << "Enter new desc: ";
+					std::getline(std::cin, str);
+					Inventory.changeDesc(id, str);
 				}
-				else
+				catch (const std::invalid_argument& e)
 				{
-					Inventory.changeDesc(InputID, desc);
+					// char infront
+					std::cout << e.what() << std::endl;
+					return;
 				}
 			}
 		}
-		if (UserInput == 9)
+		else if (UserInput == 10)
 		{
 			running = 2;
+		}
+		else
+		{
+			std::cout << "Input not valid" << std::endl;
 		}
 	}
 	catch (const std::out_of_range& e)
 	{
 		std::cout << e.what() << std::endl;
 	}
+	
 }
 
+int getID()
+{
+	try {
+		std::string str;
+		std::cout << "Enter ID: ";
+		std::getline(std::cin, str);
+		int id = stoi(str);
+		return id;
+	}
+	catch (const std::invalid_argument& e)
+	{
+		// char infront
+		std::cout << e.what() << std::endl;
+		return -1;
+	}
+}
 
+int getInput()
+{
+	try {
+		std::string str;
+		std::cout << "Enter option: ";
+		std::getline(std::cin, str);
+		int id = stoi(str);
+		return id;
+	}
+	catch (const std::invalid_argument& e)
+	{
+		// char infront
+		std::cout << e.what() << std::endl;
+		return -1;
+	}
+}
 
 
