@@ -9,6 +9,7 @@ LinkedList::LinkedList()
 LinkedList::~LinkedList()
 {
 	outputFile();
+	std::cout << "\nSize: " << size();
 	Clear();
 }
 
@@ -235,6 +236,27 @@ int LinkedList::returnQuantity(int id)
 	return -1;
 }
 
+int LinkedList::size()
+{
+	if (Head == nullptr)
+	{
+		//empty list
+		return 0;
+	}
+
+	LinkedListNode* Current = Head;
+
+	int sum = 0;
+
+	while (Current)
+	{
+		sum++;
+		Current = Current->next;
+	}
+
+	return sum;
+}
+
 std::string LinkedList::returnDesc(int id)
 {
 	if (Head == nullptr)
@@ -382,8 +404,10 @@ void LinkedList::inputFile(const std::string& filename)
 	int id, quantity;
 	std::string desc;
 
-	while (file >> id >> quantity >> desc)
+	while (file >> id >> quantity)
 	{
+		//ignore leading whitespace
+		std::getline(file >> std::ws, desc);
 		pushNode(id, quantity, desc);
 	}
 }

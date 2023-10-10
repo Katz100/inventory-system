@@ -29,6 +29,7 @@ public:
 	double back();
 
 	int returnQuantity(int id);
+	int size();
 
 	std::string returnDesc(int id);
 	
