@@ -9,7 +9,6 @@ LinkedList::LinkedList()
 LinkedList::~LinkedList()
 {
 	outputFile();
-	std::cout << "\nSize: " << size();
 	Clear();
 }
 
