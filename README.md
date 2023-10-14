@@ -20,4 +20,5 @@
   <li>Change description</li>
   <li>Save inventory items to txt file when quitting</li>
   <li>Retrieve Inventory items from txt file on start up. (InvenFile.txt must be in same directory as source.cpp that is found in linkclass)</li>
+<li>Sort by id<li>
 </ol>
