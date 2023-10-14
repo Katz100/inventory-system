@@ -111,6 +111,86 @@ void LinkedList::printNeighbors(int ID)
 	}
 }
 
+void LinkedList::swap(int id1, int id2)
+{
+	if (Head == nullptr)
+	{
+		throw std::out_of_range("Tried to call swap() on empty list");
+	}
+
+	LinkedListNode* node1 = Head;
+
+	while (node1 != nullptr && node1->id != id1 )
+	{
+		node1 = node1->next;
+	}
+
+	if (node1 == nullptr)
+	{
+		//node does not exist
+		throw std::out_of_range("First id does not exist");
+	}
+
+	LinkedListNode* node2 = Head;
+
+	while (node2 != nullptr && node2->id != id2)
+	{
+		node2 = node2->next;
+	}
+
+	if (node2 == nullptr)
+	{
+		//node does not exist
+		throw std::out_of_range("Second id does not exist");
+	}
+	
+	//update surrounding nodes
+	if (node1->previous != nullptr)
+	{
+		node1->previous->next = node2;
+	}
+	else
+	{
+		Head = node2;
+	}
+	if (node2->next != nullptr)
+	{
+		node2->next->previous = node1;
+	}
+
+	//update node 1 and 2
+	node1->next = node2->next;
+	node2->previous = node1->previous;
+	node1->previous = node2;
+	node2->next = node1;
+}
+
+void LinkedList::sort()
+{
+	if (Head == nullptr || Head->next == nullptr) {
+		return;
+	}
+	int n = size();
+	for (int i = 0; i < n - 1; i++)
+	{
+		bool swapped = false;
+
+		for (int j = 0; j < n - i - 1; j++)
+		{
+			if(getId(j) > getId(j + 1))
+			{
+				swap(getId(j), getId(j + 1));
+				swapped = true;
+			}
+		}
+		if (!swapped)
+		{
+			break;
+		}
+	}
+
+}
+
 void LinkedList::popBack()
 {
 	if (Head == nullptr)
@@ -207,6 +287,30 @@ double LinkedList::back()
 		
 		Current = Current->next;
 	}
+	return Current->id;
+}
+
+int LinkedList::getId(int num)
+{
+	if (num < 0)
+	{
+		throw std::out_of_range("Out of range");
+	}
+
+	LinkedListNode* Current = Head;
+	int index = 0;
+
+	while (Current != nullptr && index < num)
+	{
+		Current = Current->next;
+		index++;
+	}
+
+	if (Current == nullptr)
+	{
+		throw std::out_of_range("Out of range");
+	}
+
 	return Current->id;
 }
 

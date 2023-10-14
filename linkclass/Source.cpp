@@ -38,7 +38,8 @@ void menu() {
 		"7. Change ID\n" <<
 		"8. Change Quantity\n" <<
 		"9. Change Description\n" <<
-		"10. Quit\n\n";
+		"10. Quit\n" << 
+		"11. Sort\n";
 	
 	int UserInput = getInput();
 	std::string s;
@@ -182,6 +183,11 @@ void menu() {
 		else if (UserInput == 10)
 		{
 			running = 2;
+		}
+		else if (UserInput == 11)
+		{
+		
+			Inventory.sort();
 		}
 		else
 		{

@@ -21,13 +21,15 @@ public:
 	void inputFile(const std::string& filename);
 	void pushNode(int ID, int quan, std::string d);
 	void printNeighbors(int ID);
-	
+	void swap(int id1, int id2);
+	void sort();
 	friend std::ostream& operator <<(std::ostream& ostr,  const LinkedList& rhs);
 	friend std::istream& operator >>(std::istream& in, LinkedList& list);
 	
 	double front();
 	double back();
 
+	int getId(int num);
 	int returnQuantity(int id);
 	int size();
 
