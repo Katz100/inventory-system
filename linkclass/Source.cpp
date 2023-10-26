@@ -14,7 +14,7 @@ int main()
 {
 	
 	Inventory.inputFile("InvenFile.txt");
-
+	
 	
 	while (running == 1) 
 	{	

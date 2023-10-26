@@ -177,9 +177,9 @@ void LinkedList::sort()
 
 		for (int j = 0; j < n - i - 1; j++)
 		{
-			if(getId(j) > getId(j + 1))
+			if((*this)[j] > (*this)[j+1])
 			{
-				swap(getId(j), getId(j + 1));
+				swap((*this)[j], (*this)[j+1]);
 				swapped = true;
 			}
 		}
@@ -260,6 +260,30 @@ void LinkedList::popPosition(int ID)
 		
 	}
 
+}
+
+int LinkedList::operator[](int num)
+{
+	if (num < 0)
+	{
+		throw std::out_of_range("Out of range");
+	}
+
+	LinkedListNode* Current = Head;
+	int index = 0;
+
+	while (Current != nullptr && index < num)
+	{
+		Current = Current->next;
+		index++;
+	}
+
+	if (Current == nullptr)
+	{
+		throw std::out_of_range("Out of range");
+	}
+
+	return Current->id;
 }
 
 double LinkedList::front()

@@ -23,9 +23,11 @@ public:
 	void printNeighbors(int ID);
 	void swap(int id1, int id2);
 	void sort();
+
 	friend std::ostream& operator <<(std::ostream& ostr,  const LinkedList& rhs);
 	friend std::istream& operator >>(std::istream& in, LinkedList& list);
-	
+	int operator[](int num);
+
 	double front();
 	double back();
 
