@@ -193,6 +193,7 @@ void LinkedList::sort()
 
 void LinkedList::popBack()
 {
+	
 	if (Head == nullptr)
 	{
 		//empty list

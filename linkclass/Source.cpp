@@ -7,13 +7,13 @@ void menu();
 int getID();
 int getInput();
 
-LinkedList Inventory;
+LinkedList* Inventory = new LinkedList;
 int running = 1;
 
 int main() 
 {
 	
-	Inventory.inputFile("InvenFile.txt");
+	Inventory->inputFile("InvenFile.txt");
 	
 	
 	while (running == 1) 
@@ -21,7 +21,7 @@ int main()
 		menu();
 	}
 	
-	
+	delete Inventory;
 	return 0;
 }
 
@@ -52,13 +52,13 @@ void menu() {
 	try {
 		if (UserInput == 1)
 		{
-			std::cin >> Inventory;
+			std::cin >> *Inventory;
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), \
 				'\n');
 		}
 		else if (UserInput == 2)
 		{
-			std::cout << Inventory;
+			std::cout << *Inventory;
 		}
 		else if (UserInput == 3)
 		{
@@ -70,7 +70,7 @@ void menu() {
 			}
 			else
 			{
-				Inventory.printNode(id);
+				Inventory->printNode(id);
 			}
 		}
 		else if (UserInput == 4)
@@ -83,7 +83,7 @@ void menu() {
 			}
 			else
 			{
-				Inventory.printNeighbors(id);
+				Inventory->printNeighbors(id);
 			}
 		}
 		else if (UserInput == 5)
@@ -96,12 +96,12 @@ void menu() {
 			}
 			else
 			{
-				Inventory.popPosition(id);
+				Inventory->popPosition(id);
 			}
 		}
 		else if (UserInput == 6)
 		{
-			Inventory.Clear();
+			Inventory->Clear();
 		}
 		else if (UserInput == 7)
 		{
@@ -119,7 +119,7 @@ void menu() {
 					std::cout << "Enter new id: ";
 					std::getline(std::cin, str);
 					int newID = stoi(str);
-					Inventory.changeID(id, newID);
+					Inventory->changeID(id, newID);
 				}
 				catch (const std::invalid_argument& e)
 				{
@@ -145,7 +145,7 @@ void menu() {
 					std::cout << "Enter new quantity: ";
 					std::getline(std::cin, str);
 					int quan = stoi(str);
-					Inventory.changeQuantity(id, quan);
+					Inventory->changeQuantity(id, quan);
 				}
 				catch (const std::invalid_argument& e)
 				{
@@ -170,7 +170,7 @@ void menu() {
 					std::string str;
 					std::cout << "Enter new desc: ";
 					std::getline(std::cin, str);
-					Inventory.changeDesc(id, str);
+					Inventory->changeDesc(id, str);
 				}
 				catch (const std::invalid_argument& e)
 				{
@@ -187,7 +187,7 @@ void menu() {
 		else if (UserInput == 11)
 		{
 		
-			Inventory.sort();
+			Inventory->sort();
 		}
 		else
 		{
